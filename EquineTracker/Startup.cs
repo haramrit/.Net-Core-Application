@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EquineTracker.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EquineTracker
 {
@@ -24,6 +26,10 @@ namespace EquineTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddMvc();
+            var connection = @"Server=localhost;Database=BegEFCore;User ID=LAPTOP-D8C511R8\\SQLEXPRESS; Trusted_Connection=true;";
+            services.AddDbContext<BegEFCoreContext>(options => options.UseSqlServer(connection));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -44,7 +50,7 @@ namespace EquineTracker
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler(" / Home/Error");
                 app.UseHsts();
             }
 
